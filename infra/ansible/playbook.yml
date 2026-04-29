@@ -1,0 +1,6 @@
+- name: Setup server
+  hosts: web_servers
+  become: true
+
+  roles:
+    - gerlingguy.docker
