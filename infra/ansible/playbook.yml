@@ -3,4 +3,37 @@
   become: true
 
   roles:
-    - gerlingguy.docker
+    - geerlingguy.docker
+
+  tasks:
+    - name: Copy docker-compose file
+      copy:
+        src: ../../docker-compose.yml
+        dest: /home/ubuntu/docker-compose.yml
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+    
+    - name: Create .env file
+      copy:
+        content: |
+          DB_USER={{ db_user }}
+          DB_PASSWORD={{ db_password }}
+        dest: /home/ubuntu/.env
+        owner: ubuntu
+        group: ubuntu
+        mode: '0600'
+    
+    - name: Copy NGINX configuration
+      copy:
+        src: ../../nginx.conf
+        dest: /home/ubuntu/nginx.conf
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+    
+    - name: Run docker-compose
+      community.docker.docker_compose_v2:
+        project_src: /home/ubuntu
+        state: present
+      register: output
