@@ -1,4 +1,11 @@
 terraform {
+  cloud {
+    organization = "naturdex"
+    workspaces {
+      name = "naturdex-api"
+    }
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
