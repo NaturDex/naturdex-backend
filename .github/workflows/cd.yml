@@ -69,4 +69,4 @@ jobs:
             -u ubuntu \
             --ssh-extra-args="-o StrictHostKeyChecking=no" \
             -e "db_user=${{ secrets.DB_USER }} db_password=${{ secrets.DB_PASSWORD }}" \
-            infra/ansible/playbook.yml
+            playbook.yml
