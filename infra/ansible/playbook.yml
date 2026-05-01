@@ -1,5 +1,5 @@
 - name: Setup server
-  hosts: web_servers
+  hosts: all
   become: true
 
   roles:
