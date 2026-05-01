@@ -33,6 +33,12 @@
         group: ubuntu
         mode: '0644'
     
+    - name: Login to GitHub Container Registry
+      community.docker.docker_login:
+        registry: ghcr.io
+        username: "{{ ghcr_username }}"
+        password: "{{ ghcr_token }}"
+
     - name: Run docker-compose
       community.docker.docker_compose_v2:
         project_src: /home/ubuntu
