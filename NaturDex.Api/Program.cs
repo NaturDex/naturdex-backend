@@ -42,7 +42,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Version = "v1",
         Title = "NaturDex API",
-        Description = "API til at tilgå NaturDex-databasen. Alle endpoints bruger JSON.",
+        Description = "API til at tilgï¿½ NaturDex-databasen. Alle endpoints bruger JSON.",
         Contact = new OpenApiContact
         {
             Name = "NaturDex Team",
@@ -111,5 +111,11 @@ app.MapDelete("/api/v1/animals/{id}", async (int id, IRepository<Animal> repo) =
     await repo.DeleteAsync(id);
     return Results.NoContent();
 });
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<NaturDexDbContext>();
+    db.Database.Migrate();
+}
 
 app.Run();
