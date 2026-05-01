@@ -3,7 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-*.env
+.env
+*.tfstate
+*.tfstate.backup
+.terraform/
 
 # User-specific files
 *.rsuser

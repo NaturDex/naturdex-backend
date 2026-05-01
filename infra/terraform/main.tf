@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-west-1"
+  region = "eu-north-1"
 }
 
 data "aws_ami" "ubuntu" {
@@ -34,7 +34,7 @@ resource "aws_instance" "app_server" {
   instance_type = "t3.micro"
 
   tags = {
-    Name = "NaturDexAppServer"
+    Name = "NaturDexAPI"
   }
 }
 
