@@ -77,5 +77,6 @@ jobs:
             -i "${{ needs.terraform.outputs.server_ip }}," \
             -u ubuntu \
             --ssh-extra-args="-o StrictHostKeyChecking=no" \
+            --tags all \
             -e "db_user=${{ secrets.DB_USER }} db_password=${{ secrets.DB_PASSWORD }} ghcr_username=${{ github.actor }} ghcr_token=${{ secrets.GHCR_TOKEN }}" \
             playbook.yml
