@@ -64,6 +64,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseCors("FrontendCorsPolicy");
+app.UseHttpMetrics();
+app.MapMetrics();
 
 app.UseSwagger();
     app.UseSwaggerUI(c =>
