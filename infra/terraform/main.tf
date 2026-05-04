@@ -75,3 +75,12 @@ resource "aws_key_pair" "deployer" {
     key_name   = "deployer-key-v2"
     public_key = var.ssh_public_key
 }
+
+resource "aws_eip" "app_ip" {
+  instance = aws_instance.app_server.id
+  domain   = "vpc"
+
+  tags = {
+    Name = "NaturDex-Static-IP"
+  }
+}
