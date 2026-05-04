@@ -55,28 +55,8 @@ jobs:
 
   ansible:
     needs: terraform
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Install Ansible
-        run: pip install ansible
-
-      - name: Install requirements
-        run: ansible-galaxy install -r infra/ansible/requirements.yml
-
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Run playbook
-        working-directory: infra/ansible
-        run: |
-          ansible-playbook \
-            -i "${{ needs.terraform.outputs.server_ip }}," \
-            -u ubuntu \
-            --ssh-extra-args="-o StrictHostKeyChecking=no" \
-            --tags all \
-            -e "db_user=${{ secrets.DB_USER }} db_password=${{ secrets.DB_PASSWORD }} ghcr_username=${{ github.actor }} ghcr_token=${{ secrets.GHCR_TOKEN }}" \
-            playbook.yml
+    uses: ./.github/workflows/reusable-ansible.yml
+    with:
+      server_ip: ${{ needs.terraform.outputs.server_ip }}
+      deploy_tags: "all" 
+    secrets: inherit

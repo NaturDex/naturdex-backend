@@ -37,6 +37,15 @@
         mode: '0644'
       tags: infra
     
+    - name: Create Nginx password file
+      copy:
+        content: "{{ nginx_auth_string }}"
+        dest: /home/ubuntu/.htpasswd
+        owner: ubuntu
+        group: ubuntu
+        mode: '0600'
+      tags: deploy
+
     - name: Login to GitHub Container Registry
       community.docker.docker_login:
         registry: ghcr.io

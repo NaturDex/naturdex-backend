@@ -1,0 +1,44 @@
+name: Ansible Deploy
+
+on:
+  workflow_call:
+    inputs:
+      server_ip:
+        description: 'The IP address to deploy to'
+        required: true
+        type: string
+      deploy_tags:
+        description: 'Ansible tags to run (e.g., "deploy" or "infra,deploy")'
+        required: true
+        type: string
+
+jobs:
+  run-ansible:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: pip install ansible
+
+      - name: Install requirements
+        run: ansible-galaxy install -r infra/ansible/requirements.yml
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          
+      - name: Execute Playbook
+        working-directory: infra/ansible
+        run: |
+          ansible-playbook \
+            -i "${{ inputs.server_ip }}," \
+            -u ubuntu \
+            --ssh-extra-args="-o StrictHostKeyChecking=no" \
+            --tags "${{ inputs.deploy_tags }}" \
+            -e "ghcr_username=${{ github.actor }} \
+                ghcr_token=${{ secrets.GITHUB_TOKEN }} \
+                nginx_auth_string='${{ secrets.NGINX_HTPASSWD }}'" \
+            playbook.yml
