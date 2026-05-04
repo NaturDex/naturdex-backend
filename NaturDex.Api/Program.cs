@@ -5,6 +5,7 @@ using NaturDex.Core.Interfaces;
 using NaturDex.Core.Models;
 using NaturDex.Core.Repositories;
 using Npgsql;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
