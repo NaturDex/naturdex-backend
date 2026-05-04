@@ -1,6 +1,8 @@
 name: Infrastructure
 
 permissions:
+  contents: read
+  packages: read
   pull-requests: write
 
 on:
