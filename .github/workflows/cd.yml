@@ -1,12 +1,21 @@
-name: CD
+name: Infrastructure
 
 permissions:
   pull-requests: write
 
 on:
   push:
-    branches: [main]
-
+    branches:
+      - main
+    paths:
+      - 'infra/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'infra/**'
+  workflow_dispatch:
+  
 jobs:
   terraform:
     runs-on: ubuntu-latest
