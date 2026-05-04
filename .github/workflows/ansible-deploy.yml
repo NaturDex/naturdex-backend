@@ -11,6 +11,11 @@ on:
         description: 'Ansible tags to run (e.g., "deploy" or "infra,deploy")'
         required: true
         type: string
+    secrets: inherit
+
+permissions:
+  contents: read
+  packages: read
 
 jobs:
   run-ansible:
@@ -32,15 +37,16 @@ jobs:
           
       - name: Execute Playbook
         working-directory: infra/ansible
+        env:
+          GHCR_USERNAME: ${{ secrets.GHCR_USERNAME || github.actor }}
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN || secrets.GITHUB_TOKEN }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          NGINX_AUTH_STRING: ${{ secrets.NGINX_HTPASSWD }}
         run: |
           ansible-playbook \
             -i "${{ inputs.server_ip }}," \
             -u ubuntu \
             --ssh-extra-args="-o StrictHostKeyChecking=no" \
             --tags "${{ inputs.deploy_tags }}" \
-            -e "ghcr_username=${{ github.actor }} \
-                ghcr_token=${{ secrets.GITHUB_TOKEN }} \
-                db_user=${{ secrets.DB_USER }} \
-                db_password=${{ secrets.DB_PASSWORD }} \
-                nginx_auth_string='${{ secrets.NGINX_HTPASSWD }}'" \
             playbook.yml
