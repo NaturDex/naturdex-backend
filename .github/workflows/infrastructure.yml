@@ -55,7 +55,7 @@ jobs:
 
   ansible:
     needs: terraform
-    uses: ./.github/workflows/reusable-ansible.yml
+    uses: ./.github/workflows/ansible-deploy.yml
     with:
       server_ip: ${{ needs.terraform.outputs.server_ip }}
       deploy_tags: "all" 
