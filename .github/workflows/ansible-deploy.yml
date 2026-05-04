@@ -39,6 +39,6 @@ jobs:
             --ssh-extra-args="-o StrictHostKeyChecking=no" \
             --tags "${{ inputs.deploy_tags }}" \
             -e "ghcr_username=${{ github.actor }} \
-                ghcr_token=${{ secrets.GITHUB_TOKEN }} \
-                nginx_auth_string='${{ secrets.NGINX_HTPASSWD }}'" \
+                ghcr_token=${{ secrets.GITHUB_TOKEN }}" \
+            -e "nginx_auth_string=${{ secrets.NGINX_HTPASSWD }}" \
             playbook.yml
