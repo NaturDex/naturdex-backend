@@ -20,8 +20,8 @@
     - name: Create .env file
       copy:
         content: |
-          DB_USER={{ db_user }}
-          DB_PASSWORD={{ db_password }}
+          DB_USER={{ lookup('ansible.builtin.env', 'DB_USER') }}
+          DB_PASSWORD={{ lookup('ansible.builtin.env', 'DB_PASSWORD') }}
         dest: /home/ubuntu/.env
         owner: ubuntu
         group: ubuntu
@@ -39,7 +39,7 @@
     
     - name: Create Nginx password file
       copy:
-        content: "{{ nginx_auth_string }}"
+        content: "{{ lookup('ansible.builtin.env', 'NGINX_AUTH_STRING') }}"
         dest: /home/ubuntu/.htpasswd
         owner: ubuntu
         group: ubuntu
@@ -49,8 +49,8 @@
     - name: Login to GitHub Container Registry
       community.docker.docker_login:
         registry: ghcr.io
-        username: "{{ ghcr_username }}"
-        password: "{{ ghcr_token }}"
+        username: "{{ lookup('ansible.builtin.env', 'GHCR_USERNAME') }}"
+        password: "{{ lookup('ansible.builtin.env', 'GHCR_TOKEN') }}"
       tags: deploy
 
     - name: Run docker-compose
