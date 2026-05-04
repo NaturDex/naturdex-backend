@@ -5,7 +5,7 @@
 
   roles:
     - role: geerlingguy.docker
-      tags: [ infra ]
+      tags: infra
 
   tasks:
     - name: Copy docker-compose file
@@ -15,7 +15,7 @@
         owner: ubuntu
         group: ubuntu
         mode: '0644'
-      tags: [ deploy ]
+      tags: deploy
 
     - name: Create .env file
       copy:
@@ -26,7 +26,7 @@
         owner: ubuntu
         group: ubuntu
         mode: '0600'
-      tags: [ infra ]
+      tags: infra
 
     - name: Copy NGINX configuration
       copy:
@@ -35,14 +35,14 @@
         owner: ubuntu
         group: ubuntu
         mode: '0644'
-      tags: [ infra ]
+      tags: infra
     
     - name: Login to GitHub Container Registry
       community.docker.docker_login:
         registry: ghcr.io
         username: "{{ ghcr_username }}"
         password: "{{ ghcr_token }}"
-      tags: [ deploy ]
+      tags: deploy
 
     - name: Run docker-compose
       community.docker.docker_compose_v2:
@@ -50,4 +50,4 @@
         state: present
         pull: always
       register: output
-      tags: [ deploy ]
+      tags: deploy
