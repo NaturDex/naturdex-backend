@@ -46,6 +46,15 @@
         mode: '0600'
       tags: deploy
 
+    - name: Copy Prometheus configuration
+      copy:
+        src: ../../prometheus.yml
+        dest: /home/ubuntu/prometheus.yml
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+      tags: infra
+
     - name: Login to GitHub Container Registry
       community.docker.docker_login:
         registry: ghcr.io
