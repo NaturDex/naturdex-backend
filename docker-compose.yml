@@ -46,8 +46,9 @@ services:
     depends_on:
       - prometheus
     environment:
-    - GF_SERVER_ROOT_URL=http://%(domain)s/grafana/
-    - GF_SERVER_SERVE_FROM_SUB_PATH=true
+      - GF_SERVER_DOMAIN=${APP_SERVER_IP}
+      - GF_SERVER_ROOT_URL=http://%(domain)s/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
 
 volumes:
   postgres-data:
