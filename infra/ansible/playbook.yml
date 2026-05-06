@@ -22,6 +22,7 @@
         content: |
           DB_USER={{ lookup('ansible.builtin.env', 'DB_USER') }}
           DB_PASSWORD={{ lookup('ansible.builtin.env', 'DB_PASSWORD') }}
+          SERVER_IP={{ lookup('ansible.builtin.env', 'SERVER_IP') }}
         dest: /home/ubuntu/.env
         owner: ubuntu
         group: ubuntu

@@ -38,6 +38,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           NGINX_AUTH_STRING: ${{ secrets.NGINX_HTPASSWD }}
+          SERVER_IP: ${{ inputs.server_ip }}
         run: |
           ansible-playbook \
             -i "${{ inputs.server_ip }}," \
