@@ -48,6 +48,7 @@ services:
     environment:
       - GF_SERVER_ROOT_URL=http://${SERVER_IP}/grafana
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
+      - GF_LIVE_MAX_CONNECTIONS=0
     volumes:
       - grafana-data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning:ro
