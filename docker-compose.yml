@@ -50,10 +50,6 @@ services:
       - GF_SERVER_ROOT_URL=http://%(domain)s/grafana/
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
       - GF_LIVE_MAX_CONNECTIONS=0
-    deploy:
-      resources:
-        limits:
-          memory: 400M
 
 volumes:
   postgres-data:
