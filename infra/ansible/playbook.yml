@@ -27,7 +27,7 @@
         owner: ubuntu
         group: ubuntu
         mode: '0600'
-      tags: infra
+      tags: deploy
 
     - name: Copy NGINX configuration
       copy:
@@ -36,7 +36,7 @@
         owner: ubuntu
         group: ubuntu
         mode: '0644'
-      tags: infra
+      tags: deploy
     
     - name: Create Nginx password file
       copy:
@@ -54,7 +54,7 @@
         owner: ubuntu
         group: ubuntu
         mode: '0644'
-      tags: infra
+      tags: deploy
 
     - name: Login to GitHub Container Registry
       community.docker.docker_login:
