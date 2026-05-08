@@ -56,6 +56,16 @@
         mode: '0644'
       tags: deploy
 
+    - name: Copy Grafana provisioning and dashboards
+      copy:
+        src: ../../grafana/
+        dest: /home/ubuntu/grafana/
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+        directory_mode: '0755'
+      tags: deploy
+
     - name: Login to GitHub Container Registry
       community.docker.docker_login:
         registry: ghcr.io
